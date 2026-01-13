@@ -70,10 +70,15 @@ If prerequisites are met, get the test content URL from the user and proceed to 
 
 **For new blocks or major modifications:**
 
-1. Search the codebase for similar blocks that might provide useful patterns or code we can re-use
-2. Use the **block-collection-and-party** skill to find relevant reference blocks
+1. **Check for project-specific reference patterns:**
+   - List files in `.claude/skills/building-blocks/resources/` to see if a reference file exists (e.g., `accordion-reference.md`, `carousel-reference.md`)
+   - If a `{block-name}-reference.md` file exists, read it for project-specific design patterns and implementation guidance
+   
+2. Search the codebase for similar blocks that might provide useful patterns or code we can re-use
 
-Review the implementation patterns in similar blocks to inform your approach.
+3. Use the **block-collection-and-party** skill to find relevant reference blocks
+
+Review the implementation patterns in similar blocks to inform your approach. **Prefer project-specific references over external examples** when available.
 
 **For minor modifications to existing blocks:** Skip to step 3.
 
