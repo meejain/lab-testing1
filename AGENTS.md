@@ -2,6 +2,23 @@
 
 This project is a website built with Edge Delivery Services in Adobe Experience Manager Sites as a Cloud Service. As an agent, follow the instructions in this file to deliver code based on Adobe's standards for fast, easy-to-author, and maintainable web experiences.
 
+## ⚠️ CRITICAL: MANDATORY SKILL USAGE - READ THIS FIRST
+
+**BEFORE starting ANY development task, you MUST:**
+
+1. **List the `.skills/` directory** to see available skills
+2. **Identify the relevant skill(s)** for the task at hand
+3. **Read the full SKILL.md file** and follow its instructions exactly
+4. **Announce the skill usage** by saying "Using Skill: {Skill Name}"
+
+**This is non-negotiable. No exceptions. Failing to use skills results in:**
+- ❌ Inconsistent code quality
+- ❌ Missed best practices
+- ❌ Wasted time and effort
+- ❌ Rework and frustration
+
+**✅ If you're about to write code without consulting a skill, STOP and list the skills directory first.**
+
 ## Project Overview
 
 This project is based on the https://github.com/adobe/aem-boilerplate/ project and set up as a new project. You are expected to follow the coding style and practices established in the boilerplate, but add functionality according to the needs of the site currently developed.
@@ -152,12 +169,66 @@ Pages are progressively loaded in three phases to maximize performance. This pro
 - Include CSS and JS files for each block
 - Follow the naming convention: `blockname.css`, `blockname.js`
 - Blocks should be responsive and accessible by default
+- **CRITICAL**: Always match the existing design system when creating new blocks (see Design System section below)
 
 ### Styling
 - Global styles go in `styles/styles.css`
 - Font definitions in `styles/fonts.css`
 - Lazy-loaded styles in `styles/lazy-styles.css`
 - Block-specific styles in their respective directories
+
+### Design System
+
+**BEFORE creating or modifying any block, you MUST review existing blocks to understand and match the design system.**
+
+Most projects have a consistent design language across all blocks. New blocks must follow the existing patterns to maintain visual consistency.
+
+#### Implementation Pattern
+When creating a new block:
+
+1. **Review Existing Blocks**: Read CSS from 2-3 similar blocks to understand the design patterns
+   ```javascript
+   // Example: Check existing blocks first
+   await readFile('blocks/cards/cards.css');
+   await readFile('blocks/hero/hero.css');
+   ```
+
+2. **Extract Patterns**: Identify and note:
+   - **Typography**: Font families, sizes, weights, line heights
+   - **Colors**: Text colors, background colors, accent colors, brand colors
+   - **Spacing**: Section padding, margins, gaps, container widths
+   - **Breakpoints**: Media query breakpoints and responsive behavior
+   - **Visual Effects**: Animations, transitions, shadows, border radius
+   - **Section Structure**: Container/wrapper classes and their styling patterns
+
+3. **Match Theme**: Use the exact same design tokens:
+   - Font families and typography scale
+   - Color values (don't approximate - use exact hex/rgb values)
+   - Spacing scale and padding/margin values
+   - Animation timing and easing functions
+
+4. **Section-Level Styling**: Support section container and wrapper classes:
+   ```css
+   .{blockname}-container {
+     /* Section-level styling (background, spacing, etc.) */
+   }
+
+   .{blockname}-wrapper {
+     /* Content wrapper with max-width and padding */
+   }
+
+   .{blockname}-container h2 {
+     /* Heading styles matching project theme */
+   }
+   ```
+
+5. **Test Consistency**: Ensure the new block looks like it belongs with existing blocks
+   - Visual hierarchy should match
+   - Spacing rhythm should be consistent
+   - Hover/interaction states should follow the same patterns
+   - Responsive behavior should match breakpoints
+
+**Why This Matters**: Design consistency is critical for professional websites. Mismatched fonts, colors, or spacing make a site look unprofessional and breaks user trust.
 
 ## Testing & Quality Assurance
 
@@ -298,16 +369,16 @@ Skills are located in the `.skills/` directory. Check the `.skills/` directory f
 <!-- upskill:skills:start -->
 ## Skills
 
-You have access to a set of skills in .claude/skills. Each skill consists of a SKILL.md file, and other files such as scripts and resources, which are referenced from there.
+You have access to a set of skills in .skills. Each skill consists of a SKILL.md file, and other files such as scripts and resources, which are referenced from there.
 
 **YOU ARE REQUIRED TO USE THESE SKILLS TO ACCOMPLISH DEVELOPMENT TASKS. FAILING TO DO SO WILL RESULT IN WASTED TIME AND CYCLES.**
 
 ### How Skills Work
 
-Each skill is a directory in `.claude/skills/` with the following structure:
+Each skill is a directory in `.skills/` with the following structure:
 
 ```
-.claude/skills/
+.skills/
   └── {skill-name}/
       ├── SKILL.md        # Main instructions (required)
       ├── scripts/        # Optional supporting scripts
@@ -324,7 +395,7 @@ The SKILL.md file contains detailed instructions that you must follow exactly as
 
 Always use the following process:
 
-1. **Discovery**: When a new conversation starts, discover available skills by running `./.agents/discover-skills`. This script will show you all available skills with their names, paths, and descriptions without loading everything into context.
+1. **Discovery**: When you need to use a skill, first check the `.skills/` directory to see what skills are available. List the directory to discover available skills with their names and descriptions.
 
 2. **Selection**: Use each skill based on its name and description when it feels appropriate to do so. Think carefully about all the skills available to you and choose the best ones to use. Note that some skills may reference other skills, so you may need to apply more than one skill to get things done.
 
@@ -337,7 +408,7 @@ Always use the following process:
 
 ### Available Skills
 
-Skills will be added to `.claude/skills/` as needed for this project. Check the `.claude/skills/` directory or run `./.agents/discover-skills` for the current list of available skills.
+Skills are located in the `.skills/` directory. Check the `.skills/` directory for the current list of available skills. Each skill directory contains a SKILL.md file with detailed instructions on how to use that skill.
 
 **For ALL development work involving blocks, core scripts, or functionality, you MUST start with the content-driven-development skill.** It will orchestrate other skills as needed throughout the development workflow.
 <!-- upskill:skills:end -->
